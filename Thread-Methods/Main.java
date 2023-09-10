@@ -15,12 +15,19 @@ public class Main {
         MyThread thread1 = new MyThread();
         thread1.setName("Thread 1");
         thread1.start(); // starts thread1 execution
+        try{
+            thread1.join();
+        }catch(InterruptedException e){
+            System.out.println(e);
+        }
 
         MyThread thread2 = new MyThread();
         thread2.setName("Thread 2");
         thread2.start(); // starts thread2 execution
 
         Thread mainThread = Thread.currentThread();
+
+        
 
         new Thread(() -> {
             try {
@@ -30,6 +37,7 @@ public class Main {
             }
             mainThread.interrupt();  // interrupt main thread after 2 seconds
         }).start();
+        
 
         try {
             Thread.sleep(5000);

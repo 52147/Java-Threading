@@ -27,7 +27,27 @@ public class Main {
         threadSleep.start(); // Starts the sleep thread
 
         ThreadWait threadWait = new ThreadWait();
-        threadWait.waitForSignal(); // Wait for signal
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);  // sleep for 1 second
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            synchronized (threadWait) {
+                System.out.println("About to call notify()");
+                threadWait.notify();  // notify threadWait after 1 second
+                System.out.println("Finished calling notify()");
+            }
+        }).start();
+
+        synchronized (threadWait) {
+            System.out.println("About to wait for signal");
+            threadWait.waitForSignal(); // Wait for signal
+            System.out.println("Finished waiting for signal");
+        }
     }
 }
+
+
 

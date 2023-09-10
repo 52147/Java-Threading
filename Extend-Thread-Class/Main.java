@@ -5,7 +5,7 @@ class MyThread extends Thread {
         System.out.println(Thread.currentThread().getId() +" Value "+ i);
       }
     }
-  }
+}
   
   public class Main {
     public static void main(String args[]) {
